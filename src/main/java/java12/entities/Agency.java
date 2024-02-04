@@ -17,8 +17,10 @@ public class Agency  extends BaseEntity{
     private String name;
     @Column(name = "phone_number", length = 13)
     private String phoneNumber;
-    @OneToOne(mappedBy = "agency")
+
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Address address;
+
     @ManyToMany
     @JoinTable(
             name = "owner_agency",
@@ -26,6 +28,7 @@ public class Agency  extends BaseEntity{
             inverseJoinColumns = @JoinColumn(name = "owner_id")
     )
     private List<Owner> owners;
+
     public void setPhoneNumber(String phoneNumber) {
         if (phoneNumber != null && phoneNumber.startsWith("+996") && phoneNumber.length() >= 13) {
             this.phoneNumber = phoneNumber;
@@ -34,4 +37,7 @@ public class Agency  extends BaseEntity{
         }
     }
 
+    public Agency(String name) {
+        this.name = name;
+    }
 }

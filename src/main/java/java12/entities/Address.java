@@ -1,9 +1,6 @@
 package java12.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +14,14 @@ import lombok.Setter;
 public class Address  extends BaseEntity{
     private String city;
     private String region;
+    @Column(name = "street", unique = true)
     private String street;
-    @OneToOne
+    @OneToOne(mappedBy = "address")
     private Agency agency;
+
+    public Address(String city, String region, String street) {
+        this.city = city;
+        this.region = region;
+        this.street = street;
+    }
 }
